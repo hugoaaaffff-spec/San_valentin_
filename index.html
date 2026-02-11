@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Marieta 💘</title>
+    <!-- Tu CSS igual que antes, solo añado .pin-screen -->
     <style>
-        /* 1. ELIMINACIÓN RADICAL DE ELEMENTOS DE BLOGGER */
+        /* TODO TU CSS ANTERIOR AQUÍ (copia-pega exactamente igual) */
         #header-wrapper, .header-outer, .sidebar-wrapper, .footer-wrapper, 
         .post-footer, .comments, #blog-pager, .status-msg-wrap, 
         .cap-top, .main-cap-top, .fauxcolumn-left-outer, .aside-container, 
@@ -17,7 +18,6 @@
             opacity: 0 !important;
         }
 
-        /* 2. LIMPIEZA DE LA "CAJA BLANCA" DEL POST */
         .content-inner, .main-inner, .column-center-inner, .post-body, 
         .post, .date-header, .body-fauxcolumn-outer {
             background: transparent !important;
@@ -27,7 +27,6 @@
             margin: 0 !important;
         }
 
-        /* 3. FONDO PANTALLA COMPLETA PERSONALIZADO */
         html, body {
             margin: 0 !important;
             padding: 0 !important;
@@ -38,27 +37,17 @@
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
 
-        /* 4. TU CARTA (FIJADA AL FRENTE) */
         .valentines-layout {
-            position: fixed; 
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999999;
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center;
+            justify-content: center; z-index: 999999;
         }
         
         .card-v {
-            background: white;
-            padding: 35px 25px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
+            background: white; padding: 35px 25px;
+            border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            width: 90%; max-width: 380px; text-align: center;
             position: relative;
         }
 
@@ -70,13 +59,9 @@
         p  { margin: 0 0 10px; }
 
         input {
-            width: 90%;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            outline: none;
-            font-size: 1rem;
+            width: 90%; padding: 12px; margin: 15px 0;
+            border-radius: 12px; border: 1px solid #ddd;
+            outline: none; font-size: 1rem;
         }
 
         input:focus {
@@ -85,60 +70,71 @@
         }
 
         button {
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 1rem;
+            background: #e63946; color: white; border: none;
+            padding: 12px 25px; border-radius: 15px;
+            cursor: pointer; font-weight: bold;
+            margin-top: 10px; font-size: 1rem;
         }
 
         .btn-area {
-            position: relative;
-            height: 230px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; height: 230px;
+            margin-top: 20px; display: flex;
+            align-items: center; justify-content: center;
         }
 
-        #si {
-            position: absolute;
-            left: 5%;
-            z-index: 100;
-            transition: transform 0.2s;
-        }
-
-        #no {
-            position: absolute;
-            right: 5%;
-            background: #adb5bd;
-            transition: all 0.2s;
-        }
+        #si { position: absolute; left: 5%; z-index: 100; transition: transform 0.2s; }
+        #no { position: absolute; right: 5%; background: #adb5bd; transition: all 0.2s; }
         
         .heart {
-            position: absolute;
-            color: #e63946;
-            font-size: 20px;
-            animation: fall linear forwards;
-            z-index: 1;
-            pointer-events: none;
+            position: absolute; color: #e63946;
+            font-size: 20px; animation: fall linear forwards;
+            z-index: 1; pointer-events: none;
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* NUEVO: PIN SCREEN */
+        .pin-screen {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .pin-input {
+            letter-spacing: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #e63946;
+            background: white;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
+<!-- PANTALLA DE PIN (NUEVA) -->
 <div class="valentines-layout">
+    <div class="card-v">
+        <div class="step active" id="pin-step">
+            <h1>🔐 Acceso Privado</h1>
+            <p>Ingresa el código secreto</p>
+            <input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="____">
+            <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+                Solo para una persona especial 💕
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- TU CARTA ORIGINAL (oculta hasta que entre el PIN correcto) -->
+<div class="valentines-layout" id="main-content" style="display: none;">
     <div class="card-v">
         <div class="step active" id="s0">
             <h1>💘 Hola Marieta...</h1>
@@ -168,10 +164,7 @@
             <h2>¿Quieres ser mi novia? 💕</h2>
             <div class="btn-area">
                 <button id="si" onclick="finalizar()">¡SÍ! 💖</button>
-                <!-- Botón "No" que huye también en táctiles -->
-                <button id="no"
-                        onmouseover="huir()"
-                        ontouchstart="huir()">No 🙈</button>
+                <button id="no" onmouseover="huir()" ontouchstart="huir()">No 🙈</button>
             </div>
         </div>
 
@@ -182,48 +175,51 @@
     </div>
 </div>
 
-<iframe id="musica" width="0" height="0"
-        src="https://www.youtube.com/embed/b7sU7z3FcP0?enablejsapi=1"
-        frameborder="0" allow="autoplay"></iframe>
+<iframe id="musica" width="0" height="0" src="https://www.youtube.com/embed/b7sU7z3FcP0?enablejsapi=1" frameborder="0" allow="autoplay"></iframe>
 
 <script>
-    const SCRIPT_URL = "enlace "; // aquí pondrás después tu Apps Script
+    // CAMBIA ESTE PIN POR LO QUE QUIERAS (4 dígitos)
+    const PIN_CORRECTO = "0869"; // 💕 Elige uno que solo ella sepa
+
+    const SCRIPT_URL = "enlace "; // tu Apps Script después
 
     let escalaSi = 1;
     let datos = { nombre: "", cuanto: "", gusto: "", acepto: "Pendiente" };
 
+    // PIN: escucha cada tecla
+    document.getElementById('pin-input').addEventListener('input', function(e) {
+        if (e.target.value.length === 4) {
+            if (e.target.value === PIN_CORRECTO) {
+                // PIN correcto: muestra la carta
+                document.getElementById('pin-step').style.display = 'none';
+                document.getElementById('main-content').style.display = 'flex';
+            } else {
+                // PIN incorrecto: limpia y vibra
+                e.target.value = '';
+                e.target.style.animation = 'shake 0.5s';
+                setTimeout(() => e.target.style.animation = '', 500);
+            }
+        }
+    });
+
+    // Tu código original igual...
     function enviarAGoogle() {
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(datos)
-        });
+        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(datos) });
     }
 
     function comenzar() {
         const vid = document.getElementById('musica');
-        vid.contentWindow.postMessage(
-            '{"event":"command","func":"playVideo","args":""}',
-            '*'
-        );
+        vid.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         irA(0, 1);
     }
 
     function irA(actual, siguiente) {
-        // Solo guardamos lo que haya escrito, sin mostrar errores
-        if (actual === 1) {
-            datos.nombre = document.getElementById('in-nombre').value;
-        }
-
-        if (actual === 2) {
-            datos.cuanto = document.getElementById('in-cuanto').value;
-        }
-
+        if (actual === 1) datos.nombre = document.getElementById('in-nombre').value;
+        if (actual === 2) datos.cuanto = document.getElementById('in-cuanto').value;
         if (actual === 3) {
             datos.gusto = document.getElementById('in-gusto').value;
             enviarAGoogle();
         }
-
         document.getElementById('s' + actual).classList.remove('active');
         document.getElementById('s' + siguiente).classList.add('active');
     }
@@ -231,13 +227,8 @@
     function huir() {
         const btnNo = document.getElementById('no');
         const btnSi = document.getElementById('si');
-
-        const maxX = 70;
-        const maxY = 150;
-
-        btnNo.style.left = Math.random() * maxX + '%';
-        btnNo.style.top  = Math.random() * maxY + 'px';
-
+        btnNo.style.left = Math.random() * 70 + '%';
+        btnNo.style.top = Math.random() * 150 + 'px';
         escalaSi += 0.8;
         btnSi.style.transform = `scale(${escalaSi})`;
     }
@@ -264,5 +255,14 @@
         }
     }
 </script>
+
+<style>
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+</style>
+
 </body>
 </html>
