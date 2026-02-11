@@ -37,7 +37,7 @@ html, body {
     text-align: center;
 }
 
-.step { display: none; opacity: 0; transition: opacity 0.5s; }
+.step { display: none; opacity: 0; transition: 0.5s; }
 .step.active { display: block; opacity: 1; }
 
 h1, h2 { color: #e63946; }
@@ -48,13 +48,7 @@ input {
     margin: 15px 0;
     border-radius: 12px;
     border: 1px solid #ddd;
-    outline: none;
     font-size: 1rem;
-}
-
-input:focus {
-    border-color: #e63946;
-    box-shadow: 0 0 0 2px rgba(230,57,70,0.15);
 }
 
 button {
@@ -65,28 +59,24 @@ button {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 10px;
 }
 
 button:disabled {
     opacity: 0.6;
-    cursor: not-allowed;
     background: #ccc;
+    cursor: not-allowed;
 }
 
 .btn-area {
     position: relative;
     height: 200px;
     margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #si {
     position: absolute;
     left: 10%;
-    transition: transform 0.2s;
+    transition: 0.2s;
 }
 
 #no {
@@ -95,35 +85,14 @@ button:disabled {
     background: #adb5bd;
 }
 
-.heart {
-    position: absolute;
-    font-size: 20px;
-    animation: fall linear forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-/* PIN */
-#pin-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .pin-input {
     width: 220px;
     padding: 15px;
     font-size: 2rem;
-    font-weight: bold;
     text-align: center;
     border-radius: 15px;
     border: 2px solid #e63946;
-    background: white;
     letter-spacing: 15px;
-    box-sizing: border-box;
 }
 </style>
 </head>
@@ -141,9 +110,8 @@ button:disabled {
        class="pin-input"
        maxlength="4"
        placeholder="8.69"
-       inputmode="decimal"
-       pattern="[0-9.]*">
-<p style="font-size: 0.85rem; color: #666;">Solo para una persona especial 💕</p>
+       inputmode="decimal">
+<p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
 </div>
 </div>
 </div>
@@ -153,14 +121,14 @@ button:disabled {
 <div class="card-v">
 
 <div class="step active" id="s0">
-<h1>💘 Hola Marieta...</h1>
+<h1>💘 Hola...</h1>
 <p>He preparado algo para ti. ¿Quieres verlo?</p>
 <button onclick="comenzar()">Sí, ver 💌</button>
 </div>
 
 <div class="step" id="s1">
 <p>¿Cómo te llamas?</p>
-<input type="text" id="in-nombre" value="Marieta">
+<input type="text" id="in-nombre" placeholder="Escribe tu nombre...">
 <button id="btn1" onclick="irA(1,2)" disabled>Continuar 💌</button>
 </div>
 
@@ -224,7 +192,7 @@ button:disabled {
 
 <script>
 const PIN_CORRECTO = "8.69";
-const SCRIPT_URL = "TU_URL_DE_APPS_SCRIPT_AQUI";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvvfyf5FdodvsmbEs5qMmvLpKmdbyNMBwYeI7rbYZASa3_vzRK8ktqqUfOw0nXV39BGA/exec";
 
 let escalaSi = 1;
 
@@ -269,10 +237,12 @@ activarInput("in-sonrisa","btn8");
 
 function enviarAGoogle(){
 fetch(SCRIPT_URL,{
-method:"POST",
-mode:"no-cors",
-body:JSON.stringify(datos)
-});
+  method:"POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(datos)
+})
+.then(()=>console.log("Datos enviados"))
+.catch(error=>console.error("Error:", error));
 }
 
 function comenzar(){ irA(0,1); }
@@ -298,37 +268,21 @@ document.getElementById("s"+siguiente).classList.add("active");
 function huir(){
 const btnNo=document.getElementById("no");
 const btnSi=document.getElementById("si");
-
 btnNo.style.left=Math.random()*70+"%";
 btnNo.style.top=Math.random()*150+"px";
-
 escalaSi+=0.5;
 btnSi.style.transform=`scale(${escalaSi})`;
 }
 
 function finalizar(){
 datos.acepto="¡SÍ!";
-document.getElementById("nombre-final").innerText=datos.nombre||"Marieta";
+document.getElementById("nombre-final").innerText=datos.nombre;
 enviarAGoogle();
 irA(9,10);
-lluviaCorazones();
-}
-
-function lluviaCorazones(){
-for(let i=0;i<60;i++){
-setTimeout(()=>{
-const heart=document.createElement("div");
-heart.innerHTML="❤️";
-heart.className="heart";
-heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(Math.random()*3+2)+"s";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},i*100);
-}
 }
 </script>
 
 </body>
 </html>
+
 
