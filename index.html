@@ -93,6 +93,7 @@ button:disabled {
     border-radius: 15px;
     border: 2px solid #e63946;
     letter-spacing: 15px;
+    font-family: monospace; /* Para que se vea uniforme */
 }
 </style>
 </head>
@@ -208,22 +209,38 @@ sonrisa:"",
 acepto:"Pendiente"
 };
 
-document.getElementById("pin-input").addEventListener("input", function(e){
-if(e.target.value.length===4){
-if(e.target.value===PIN_CORRECTO){
-document.getElementById("pin-step").style.display="none";
-document.getElementById("main-content").style.display="flex";
-}else{
-e.target.value="";
-alert("PIN incorrecto 💔");
-}
-}
+// --- PIN oculto con cruces ---
+const pinInput = document.getElementById("pin-input");
+let pinReal = "";
+
+pinInput.addEventListener("input", function(e){
+    let valor = e.target.value;
+    if(valor.length > pinReal.length){
+        // agregar nuevo carácter
+        pinReal += valor.slice(-1);
+    } else {
+        // borrar carácter
+        pinReal = pinReal.slice(0, valor.length);
+    }
+    e.target.value = "✖".repeat(pinReal.length);
+
+    if(pinReal.length === 4){
+        if(pinReal === PIN_CORRECTO){
+            document.getElementById("pin-step").style.display="none";
+            document.getElementById("main-content").style.display="flex";
+        } else {
+            pinReal = "";
+            e.target.value = "";
+            alert("PIN incorrecto 💔");
+        }
+    }
 });
 
+// --- Funciones del cuestionario ---
 function activarInput(idInput,idBtn){
-document.getElementById(idInput).addEventListener("input",()=>{
-document.getElementById(idBtn).disabled=!document.getElementById(idInput).value.trim();
-});
+    document.getElementById(idInput).addEventListener("input",()=>{
+        document.getElementById(idBtn).disabled=!document.getElementById(idInput).value.trim();
+    });
 }
 
 activarInput("in-nombre","btn1");
@@ -236,53 +253,53 @@ activarInput("in-apodo","btn7");
 activarInput("in-sonrisa","btn8");
 
 function enviarAGoogle(){
-fetch(SCRIPT_URL,{
-  method:"POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(datos)
-})
-.then(()=>console.log("Datos enviados"))
-.catch(error=>console.error("Error:", error));
+    fetch(SCRIPT_URL,{
+      method:"POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    })
+    .then(()=>console.log("Datos enviados"))
+    .catch(error=>console.error("Error:", error));
 }
 
 function comenzar(){ irA(0,1); }
 
 function irA(actual,siguiente){
+    if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
+    if(actual===2) datos.cita=document.getElementById("in-cita").value;
+    if(actual===3) datos.gusto=document.getElementById("in-gusto").value;
+    if(actual===4) datos.momento=document.getElementById("in-momento").value;
+    if(actual===5) datos.cancion=document.getElementById("in-cancion").value;
+    if(actual===6) datos.viaje=document.getElementById("in-viaje").value;
+    if(actual===7) datos.apodo=document.getElementById("in-apodo").value;
+    if(actual===8){
+        datos.sonrisa=document.getElementById("in-sonrisa").value;
+        enviarAGoogle();
+    }
 
-if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
-if(actual===2) datos.cita=document.getElementById("in-cita").value;
-if(actual===3) datos.gusto=document.getElementById("in-gusto").value;
-if(actual===4) datos.momento=document.getElementById("in-momento").value;
-if(actual===5) datos.cancion=document.getElementById("in-cancion").value;
-if(actual===6) datos.viaje=document.getElementById("in-viaje").value;
-if(actual===7) datos.apodo=document.getElementById("in-apodo").value;
-if(actual===8){
-datos.sonrisa=document.getElementById("in-sonrisa").value;
-enviarAGoogle();
-}
-
-document.getElementById("s"+actual).classList.remove("active");
-document.getElementById("s"+siguiente).classList.add("active");
+    document.getElementById("s"+actual).classList.remove("active");
+    document.getElementById("s"+siguiente).classList.add("active");
 }
 
 function huir(){
-const btnNo=document.getElementById("no");
-const btnSi=document.getElementById("si");
-btnNo.style.left=Math.random()*70+"%";
-btnNo.style.top=Math.random()*150+"px";
-escalaSi+=0.5;
-btnSi.style.transform=`scale(${escalaSi})`;
+    const btnNo=document.getElementById("no");
+    const btnSi=document.getElementById("si");
+    btnNo.style.left=Math.random()*70+"%";
+    btnNo.style.top=Math.random()*150+"px";
+    escalaSi+=0.5;
+    btnSi.style.transform=`scale(${escalaSi})`;
 }
 
 function finalizar(){
-datos.acepto="¡SÍ!";
-document.getElementById("nombre-final").innerText=datos.nombre;
-enviarAGoogle();
-irA(9,10);
+    datos.acepto="¡SÍ!";
+    document.getElementById("nombre-final").innerText=datos.nombre;
+    enviarAGoogle();
+    irA(9,10);
 }
 </script>
 
 </body>
 </html>
+
 
 
