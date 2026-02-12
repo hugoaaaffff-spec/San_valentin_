@@ -207,7 +207,7 @@ button:disabled {
 
 <script>
 const PIN_CORRECTO = "0869"; // tu PIN
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxFZGRqktER0zqFhwDZB8pLlFikSHEnVmnmpqF_QibngkC6ifv3zRGPKUW_ZEkYBq5RLw/exec";
+const SCRIPT_URL = "TU_URL_DEL_WEB_APP_AQUI"; // reemplaza por tu URL
 
 let escalaSi = 1;
 
@@ -233,9 +233,6 @@ pinInput.addEventListener("input", function(e){
         if(valor === PIN_CORRECTO){
             document.getElementById("pin-step").style.display = "none";
             document.getElementById("main-content").style.display = "flex";
-
-            // Reproducir música
-            musica.play().catch(() => console.log("Autoplay bloqueado"));
         } else {
             e.target.value = "";
             alert("PIN incorrecto 💔");
@@ -269,7 +266,12 @@ function enviarAGoogle(){
     .catch(error=>console.error("Error:", error));
 }
 
-function comenzar(){ irA(0,1); }
+// --- Comenzar: muestra siguiente paso y reproduce música ---
+function comenzar() {
+    irA(0,1);
+    // Reproducir música al primer clic
+    musica.play().catch(() => console.log("No se pudo reproducir la música"));
+}
 
 function irA(actual,siguiente){
     if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
