@@ -93,7 +93,7 @@ button:disabled {
     border-radius: 15px;
     border: 2px solid #e63946;
     letter-spacing: 15px;
-    font-family: monospace; /* Para que se vea uniforme */
+    font-family: monospace; 
 }
 </style>
 </head>
@@ -110,7 +110,7 @@ button:disabled {
        id="pin-input"
        class="pin-input"
        maxlength="4"
-       placeholder="✖✖✖✖"
+       placeholder="💖💖💖💖"
        inputmode="decimal">
 <p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
 </div>
@@ -209,20 +209,18 @@ sonrisa:"",
 acepto:"Pendiente"
 };
 
-// --- PIN oculto con cruces ---
+// --- PIN oculto con corazones ---
 const pinInput = document.getElementById("pin-input");
 let pinReal = "";
 
 pinInput.addEventListener("input", function(e){
     let valor = e.target.value;
     if(valor.length > pinReal.length){
-        // agregar nuevo carácter
         pinReal += valor.slice(-1);
     } else {
-        // borrar carácter
         pinReal = pinReal.slice(0, valor.length);
     }
-    e.target.value = "✖".repeat(pinReal.length);
+    e.target.value = "💖".repeat(pinReal.length);
 
     if(pinReal.length === 4){
         if(pinReal === PIN_CORRECTO){
@@ -300,6 +298,7 @@ function finalizar(){
 
 </body>
 </html>
+
 
 
 
