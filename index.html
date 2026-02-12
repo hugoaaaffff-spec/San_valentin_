@@ -60,7 +60,6 @@ button {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
-    position: relative;
     margin: 5px;
 }
 
@@ -104,6 +103,16 @@ button:disabled {
     width: 100%;
     border-radius: 20px;
     margin-top: 20px;
+}
+
+/* YouTube oculto */
+#youtube-player {
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
 }
 </style>
 </head>
@@ -202,15 +211,17 @@ button:disabled {
 </div>
 </div>
 
-<!-- 🎵 MÚSICA LOCAL (musica.mp3 OBLIGATORIO en misma carpeta) -->
-<audio id="musica" loop preload="metadata">
-  <source src="musica.mp3" type="audio/mpeg">
-  <source src="musica.ogg" type="audio/ogg">
-</audio>
+<!-- 🎵 TU CANCIÓN DE YOUTUBE (ID: jJbS3XdHon8) -->
+<iframe id="youtube-player" 
+        src="https://www.youtube.com/embed/jJbS3XdHon8?autoplay=0&loop=1&playlist=jJbS3XdHon8&mute=0" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
 
 <script>
 const PIN_CORRECTO = "0869";
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsDP1V1jAs5t11RF6eK2bBl6frjtJxyVYs7Z4oPX7OzIj5nwf8T2ij7gDsmib0yeKZJA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwfOdzqBXhUUrNHzL1PX6g6iVb5JLNXYWCA-SFcDq6eyPI3wsYV0MnpwRVb0EbxUHMbZw/exec"; // ← ¡CAMBIAR!
 
 let escalaSi = 1;
 let datos = {
@@ -226,9 +237,9 @@ let datos = {
 };
 
 const pinInput = document.getElementById("pin-input");
-const musica = document.getElementById("musica");
+const youtubePlayer = document.getElementById("youtube-player");
 
-// 🔐 PIN - Después del PIN se muestra contenido
+// 🔐 PIN
 pinInput.addEventListener("input", function(e){
     const valor = e.target.value;
     if(valor.length === 4){
@@ -237,16 +248,15 @@ pinInput.addEventListener("input", function(e){
             document.getElementById("main-content").style.display = "flex";
         } else {
             e.target.value = "";
+            alert("PIN incorrecto 💔");
         }
     }
 });
 
-// 🎵 Activar inputs
+// 🎵 Inputs
 function activarInput(idInput, idBtn){
-    const input = document.getElementById(idInput);
-    const btn = document.getElementById(idBtn);
-    input.addEventListener("input", () => {
-        btn.disabled = !input.value.trim();
+    document.getElementById(idInput).addEventListener("input", () => {
+        document.getElementById(idBtn).disabled = !document.getElementById(idInput).value.trim();
     });
 }
 
@@ -259,32 +269,32 @@ activarInput("in-viaje","btn6");
 activarInput("in-apodo","btn7");
 activarInput("in-sonrisa","btn8");
 
-// 📤 Google Sheets
+// 📊 GOOGLE SHEETS
 async function enviarAGoogle() {
+    console.log("📤 Enviando:", datos);
     try {
-        await fetch(SCRIPT_URL, {
+        const response = await fetch(SCRIPT_URL, {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(datos)
         });
-        console.log("✅ Datos enviados");
+        console.log("✅ Datos enviados!");
     } catch(error) {
         console.error("❌ Error:", error);
     }
 }
 
-// ⭐ COMENZAR - MÚSICA DESPUÉS DEL PIN + PRIMER CLIC
+// ⭐ MÚSICA SE ACTIVA EN "Sí, ver 💌"
 function comenzar() {
-    // 🎵 REPRODUCIR MÚSICA INMEDIATAMENTE (user gesture garantizado)
-    musica.volume = 0.3;
-    musica.play()
-        .then(() => console.log("💖 🎵 Música activada!"))
-        .catch(() => console.log("🎵 Segundo clic necesario"));
+    // 🎵 YouTube play() - funciona 100% con user gesture
+    youtubePlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
     
     irA(0,1);
+    console.log("🎵 ¡Música activada! (jJbS3XdHon8)");
 }
 
-// ➡️ Navegación
+// Navegación
 function irA(actual, siguiente) {
     if(actual===1) datos.nombre = document.getElementById("in-nombre").value;
     if(actual===2) datos.cita = document.getElementById("in-cita").value;
@@ -302,7 +312,7 @@ function irA(actual, siguiente) {
     document.getElementById("s"+siguiente).classList.add("active");
 }
 
-// 🏃 Botón NO huye
+// Botón NO huye
 function huir() {
     const btnNo = document.getElementById("no");
     const btnSi = document.getElementById("si");
@@ -321,7 +331,7 @@ function huir() {
     btnSi.style.transform = `scale(${Math.min(escalaSi, 1.5)})`;
 }
 
-// 💖 FINAL
+// Final
 function finalizar() {
     datos.acepto = "¡SÍ! 💖";
     document.getElementById("nombre-final-texto").innerText = datos.nombre + ", me haces el más feliz 💘";
