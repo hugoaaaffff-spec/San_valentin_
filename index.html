@@ -49,6 +49,7 @@ input {
     border-radius: 12px;
     border: 1px solid #ddd;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 button {
@@ -60,6 +61,7 @@ button {
     cursor: pointer;
     font-weight: bold;
     position: relative;
+    margin: 5px;
 }
 
 button:disabled {
@@ -193,40 +195,40 @@ button:disabled {
 
 <div class="step" id="s10">
 <h2>💖 ¡Dijo que SÍ! 💖</h2>
-<p><span id="nombre-final"></span>, me haces el más feliz 💘</p>
+<p id="nombre-final-texto"></p>
 <img id="foto-final" src="https://i.postimg.cc/JnFjGyJG/foto-escritorio-jpg.png" alt="Foto final">
 </div>
 
 </div>
 </div>
 
-<!-- Música local -->
-<audio id="musica" loop>
+<!-- 🎵 MÚSICA LOCAL (musica.mp3 OBLIGATORIO en misma carpeta) -->
+<audio id="musica" loop preload="metadata">
   <source src="musica.mp3" type="audio/mpeg">
+  <source src="musica.ogg" type="audio/ogg">
 </audio>
 
 <script>
-const PIN_CORRECTO = "0869"; // tu PIN
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV0E1bz0UjOnU1p_bJOJofhZeZZh6SXvubRWnEd3M9mDq6OlUhgLBbu65BSSP1UXoO1Q/exec"; // reemplaza por tu URL
+const PIN_CORRECTO = "0869";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsDP1V1jAs5t11RF6eK2bBl6frjtJxyVYs7Z4oPX7OzIj5nwf8T2ij7gDsmib0yeKZJA/exec";
 
 let escalaSi = 1;
-
 let datos = {
-nombre:"",
-cita:"",
-gusto:"",
-momento:"",
-cancion:"",
-viaje:"",
-apodo:"",
-sonrisa:"",
-acepto:"Pendiente"
+    nombre: "",
+    cita: "",
+    gusto: "",
+    momento: "",
+    cancion: "",
+    viaje: "",
+    apodo: "",
+    sonrisa: "",
+    acepto: "Pendiente"
 };
 
-// --- PIN solo al inicio ---
 const pinInput = document.getElementById("pin-input");
 const musica = document.getElementById("musica");
 
+// 🔐 PIN - Después del PIN se muestra contenido
 pinInput.addEventListener("input", function(e){
     const valor = e.target.value;
     if(valor.length === 4){
@@ -235,15 +237,16 @@ pinInput.addEventListener("input", function(e){
             document.getElementById("main-content").style.display = "flex";
         } else {
             e.target.value = "";
-            alert("PIN incorrecto 💔");
         }
     }
 });
 
-// --- Funciones del cuestionario ---
-function activarInput(idInput,idBtn){
-    document.getElementById(idInput).addEventListener("input",()=>{
-        document.getElementById(idBtn).disabled=!document.getElementById(idInput).value.trim();
+// 🎵 Activar inputs
+function activarInput(idInput, idBtn){
+    const input = document.getElementById(idInput);
+    const btn = document.getElementById(idBtn);
+    input.addEventListener("input", () => {
+        btn.disabled = !input.value.trim();
     });
 }
 
@@ -256,33 +259,42 @@ activarInput("in-viaje","btn6");
 activarInput("in-apodo","btn7");
 activarInput("in-sonrisa","btn8");
 
-function enviarAGoogle(){
-    fetch(SCRIPT_URL,{
-      method:"POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(datos)
-    })
-    .then(()=>console.log("Datos enviados"))
-    .catch(error=>console.error("Error:", error));
+// 📤 Google Sheets
+async function enviarAGoogle() {
+    try {
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+        console.log("✅ Datos enviados");
+    } catch(error) {
+        console.error("❌ Error:", error);
+    }
 }
 
-// --- Comenzar: muestra siguiente paso y reproduce música ---
+// ⭐ COMENZAR - MÚSICA DESPUÉS DEL PIN + PRIMER CLIC
 function comenzar() {
+    // 🎵 REPRODUCIR MÚSICA INMEDIATAMENTE (user gesture garantizado)
+    musica.volume = 0.3;
+    musica.play()
+        .then(() => console.log("💖 🎵 Música activada!"))
+        .catch(() => console.log("🎵 Segundo clic necesario"));
+    
     irA(0,1);
-    // Reproducir música al primer clic
-    musica.play().catch(() => console.log("No se pudo reproducir la música"));
 }
 
-function irA(actual,siguiente){
-    if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
-    if(actual===2) datos.cita=document.getElementById("in-cita").value;
-    if(actual===3) datos.gusto=document.getElementById("in-gusto").value;
-    if(actual===4) datos.momento=document.getElementById("in-momento").value;
-    if(actual===5) datos.cancion=document.getElementById("in-cancion").value;
-    if(actual===6) datos.viaje=document.getElementById("in-viaje").value;
-    if(actual===7) datos.apodo=document.getElementById("in-apodo").value;
-    if(actual===8){
-        datos.sonrisa=document.getElementById("in-sonrisa").value;
+// ➡️ Navegación
+function irA(actual, siguiente) {
+    if(actual===1) datos.nombre = document.getElementById("in-nombre").value;
+    if(actual===2) datos.cita = document.getElementById("in-cita").value;
+    if(actual===3) datos.gusto = document.getElementById("in-gusto").value;
+    if(actual===4) datos.momento = document.getElementById("in-momento").value;
+    if(actual===5) datos.cancion = document.getElementById("in-cancion").value;
+    if(actual===6) datos.viaje = document.getElementById("in-viaje").value;
+    if(actual===7) datos.apodo = document.getElementById("in-apodo").value;
+    if(actual===8) {
+        datos.sonrisa = document.getElementById("in-sonrisa").value;
         enviarAGoogle();
     }
 
@@ -290,32 +302,29 @@ function irA(actual,siguiente){
     document.getElementById("s"+siguiente).classList.add("active");
 }
 
-// --- Botón NO que huye detrás del SI ---
-function huir(){
+// 🏃 Botón NO huye
+function huir() {
     const btnNo = document.getElementById("no");
     const btnSi = document.getElementById("si");
-
-    // SI siempre encima
     btnSi.style.zIndex = 10;
     btnNo.style.zIndex = 5;
 
-    // Mover NO mientras aún no esté cubierto
     const siRect = btnSi.getBoundingClientRect();
     const noRect = btnNo.getBoundingClientRect();
     if(noRect.right < siRect.left || noRect.left > siRect.right || 
-       noRect.bottom < siRect.top || noRect.top > siRect.bottom){
+       noRect.bottom < siRect.top || noRect.top > siRect.bottom) {
         btnNo.style.left = Math.random()*70 + "%";
         btnNo.style.top = Math.random()*150 + "px";
     }
 
-    // Escalar SI
-    escalaSi += 0.5;
-    btnSi.style.transform = `scale(${escalaSi})`;
+    escalaSi += 0.1;
+    btnSi.style.transform = `scale(${Math.min(escalaSi, 1.5)})`;
 }
 
-function finalizar(){
-    datos.acepto="¡SÍ!";
-    document.getElementById("nombre-final").innerText=datos.nombre;
+// 💖 FINAL
+function finalizar() {
+    datos.acepto = "¡SÍ! 💖";
+    document.getElementById("nombre-final-texto").innerText = datos.nombre + ", me haces el más feliz 💘";
     enviarAGoogle();
     irA(9,10);
 }
