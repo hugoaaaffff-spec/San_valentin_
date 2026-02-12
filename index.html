@@ -1,249 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Marieta 💘</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.valentines-layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-v {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.step { display: none; opacity: 0; transition: 0.5s; }
+.step.active { display: block; opacity: 1; }
+
+h1, h2 { color: #e63946; }
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+button {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+}
+
+button:disabled {
+    opacity: 0.6;
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-area {
+    position: relative;
+    height: 200px;
+    margin-top: 20px;
+}
+
+#si {
+    position: absolute;
+    left: 10%;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+#no {
+    position: absolute;
+    right: 10%;
+    background: #adb5bd;
+    z-index: 5;
+}
+
+.pin-input {
+    width: 220px;
+    padding: 15px;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #e63946;
+    font-family: monospace; 
+}
+
+#foto-final {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+/* 🎵 YOUTUBE TOTALMENTE OCULTO */
+#player {
+    position: fixed !important;
+    top: -1000px !important;
+    left: -1000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: -999 !important;
+}
+</style>
+</head>
+
 <body>
 
 <!-- PIN -->
 <div class="valentines-layout">
-  <div class="card-v">
-    <div class="step active" id="pin-step">
-      <h1>🔐 Acceso Privado</h1>
-      <p>Ingresa el código secreto</p>
-      <input type="text"
-            id="pin-input"
-            class="pin-input"
-            maxlength="4"
-            placeholder="💖💖💖💖"
-            inputmode="numeric">
-      <p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
-    </div>
-  </div>
+<div class="card-v">
+<div class="step active" id="pin-step">
+<h1>🔐 Acceso Privado</h1>
+<p>Ingresa el código secreto</p>
+<input type="text"
+       id="pin-input"
+       class="pin-input"
+       maxlength="4"
+       placeholder="💖💖💖💖"
+       inputmode="numeric">
+<p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
+</div>
+</div>
 </div>
 
-<!-- CONTENIDO -->
+<!-- CONTENIDO ORIGINAL -->
 <div class="valentines-layout" id="main-content" style="display:none;">
-  <div class="card-v">
+<div class="card-v">
 
-    <div class="step active" id="s0">
-      <h1>💘 Hola...</h1>
-      <p>He preparado algo para ti. ¿Quieres verlo?</p>
-      <button onclick="comenzar()">Sí, ver 💌</button>
-    </div>
-
-    <div class="step" id="s1">
-      <p>¿Cómo te llamas?</p>
-      <input type="text" id="in-nombre" placeholder="Escribe tu nombre...">
-      <button id="btn1" onclick="irA(1,2)" disabled>Continuar 💌</button>
-    </div>
-
-    <div class="step" id="s2">
-      <p>¿Te acuerdas de nuestra primera cita? ✨</p>
-      <input type="text" id="in-cita">
-      <button id="btn2" onclick="irA(2,3)" disabled>Siguiente 💖</button>
-    </div>
-
-    <div class="step" id="s3">
-      <p>¿Qué es lo que más te gusta de mí? 😊</p>
-      <input type="text" id="in-gusto">
-      <button id="btn3" onclick="irA(3,4)" disabled>Siguiente 🌟</button>
-    </div>
-
-    <div class="step" id="s4">
-      <p>¿Cuándo supiste que te gustaba? 💘</p>
-      <input type="text" id="in-momento">
-      <button id="btn4" onclick="irA(4,5)" disabled>Siguiente 💕</button>
-    </div>
-
-    <div class="step" id="s5">
-      <p>¿Qué canción te recuerda a nosotros? 🎵</p>
-      <input type="text" id="in-cancion">
-      <button id="btn5" onclick="irA(5,6)" disabled>Siguiente 🎶</button>
-    </div>
-
-    <div class="step" id="s6">
-      <p>¿Cuál sería nuestro viaje soñado? ✈️</p>
-      <input type="text" id="in-viaje">
-      <button id="btn6" onclick="irA(6,7)" disabled>Siguiente 🌍</button>
-    </div>
-
-    <div class="step" id="s7">
-      <p>¿Qué apodo cariñoso me pondrías? 😏</p>
-      <input type="text" id="in-apodo">
-      <button id="btn7" onclick="irA(7,8)" disabled>Siguiente 💗</button>
-    </div>
-
-    <div class="step" id="s8">
-      <p>¿Qué es lo que más te hace sonreír cuando estás conmigo? 😊</p>
-      <input type="text" id="in-sonrisa">
-      <button id="btn8" onclick="irA(8,9)" disabled>Siguiente 💞</button>
-    </div>
-
-    <div class="step" id="s9">
-      <h2>¿Quieres ser mi novia? 💕</h2>
-      <div class="btn-area">
-        <button id="si" onclick="finalizar()">¡SÍ! 💖</button>
-        <button id="no" onmouseover="huir()">No 🙈</button>
-      </div>
-    </div>
-
-    <div class="step" id="s10">
-      <h2>💖 ¡Dijo que SÍ! 💖</h2>
-      <p id="nombre-final-texto"></p>
-      <img id="foto-final" src="https://i.postimg.cc/JnFjGyJG/foto-escritorio-jpg.png" alt="Foto final">
-    </div>
-
-  </div>
+<div class="step active" id="s0">
+<h1>💘 Hola...</h1>
+<p>He preparado algo para ti. ¿Quieres verlo?</p>
+<button onclick="comenzar()">Sí, ver 💌</button>
 </div>
 
-<!-- YouTube oculto -->
-<div id="player" style="position:fixed; left:-9999px; top:-9999px;"></div>
+<div class="step" id="s1">
+<p>¿Cómo te llamas?</p>
+<input type="text" id="in-nombre" placeholder="Escribe tu nombre...">
+<button id="btn1" onclick="irA(1,2)" disabled>Continuar 💌</button>
+</div>
+
+<div class="step" id="s2">
+<p>¿Te acuerdas de nuestra primera cita? ✨</p>
+<input type="text" id="in-cita">
+<button id="btn2" onclick="irA(2,3)" disabled>Siguiente 💖</button>
+</div>
+
+<div class="step" id="s3">
+<p>¿Qué es lo que más te gusta de mí? 😊</p>
+<input type="text" id="in-gusto">
+<button id="btn3" onclick="irA(3,4)" disabled>Siguiente 🌟</button>
+</div>
+
+<div class="step" id="s4">
+<p>¿Cuándo supiste que te gustaba? 💘</p>
+<input type="text" id="in-momento">
+<button id="btn4" onclick="irA(4,5)" disabled>Siguiente 💕</button>
+</div>
+
+<div class="step" id="s5">
+<p>¿Qué canción te recuerda a nosotros? 🎵</p>
+<input type="text" id="in-cancion">
+<button id="btn5" onclick="irA(5,6)" disabled>Siguiente 🎶</button>
+</div>
+
+<div class="step" id="s6">
+<p>¿Cuál sería nuestro viaje soñado? ✈️</p>
+<input type="text" id="in-viaje">
+<button id="btn6" onclick="irA(6,7)" disabled>Siguiente 🌍</button>
+</div>
+
+<div class="step" id="s7">
+<p>¿Qué apodo cariñoso me pondrías? 😏</p>
+<input type="text" id="in-apodo">
+<button id="btn7" onclick="irA(7,8)" disabled>Siguiente 💗</button>
+</div>
+
+<div class="step" id="s8">
+<p>¿Qué es lo que más te hace sonreír cuando estás conmigo? 😊</p>
+<input type="text" id="in-sonrisa">
+<button id="btn8" onclick="irA(8,9)" disabled>Siguiente 💞</button>
+</div>
+
+<div class="step" id="s9">
+<h2>¿Quieres ser mi novia? 💕</h2>
+<div class="btn-area">
+<button id="si" onclick="finalizar()">¡SÍ! 💖</button>
+<button id="no" onmouseover="huir()">No 🙈</button>
+</div>
+</div>
+
+<div class="step" id="s10">
+<h2>💖 ¡Dijo que SÍ! 💖</h2>
+<p id="nombre-final-texto"></p>
+<img id="foto-final" src="https://i.postimg.cc/JnFjGyJG/foto-escritorio-jpg.png" alt="Foto final">
+</div>
+
+</div>
+</div>
+
+<!-- 🎵 YOUTUBE PLAYER OCULTO -->
+<div id="player" style="position:fixed; top:-1000px; left:-1000px; width:1px; height:1px; opacity:0;"></div>
 
 <script>
 const PIN_CORRECTO = "0869";
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSx9w3ZJp9UqJg4b9FKfrB9fJlYn71Wmt2D0SdKe-Hwq3oUvvlcdQzDIUe-d9Fk6ANvA/exec"; // ← CÁMBIALA SOLO AQUÍ
+const SCRIPT_URL = "https://script.google.com/macros/s/TU_NUEVA_WEB_APP_URL_AQUI/exec"; // ← ¡PON TU URL AQUÍ!
 
 let escalaSi = 1;
 let datos = {
-  nombre:"",
-  cita:"",
-  gusto:"",
-  momento:"",
-  cancion:"",
-  viaje:"",
-  apodo:"",
-  sonrisa:"",
-  acepto:"Pendiente"
+    nombre: "",
+    cita: "",
+    gusto: "",
+    momento: "",
+    cancion: "",
+    viaje: "",
+    apodo: "",
+    sonrisa: "",
+    acepto: "Pendiente"
 };
 
-const pinInput = document.getElementById("pin-input");
-
-// --- PIN ---
-pinInput.addEventListener("input", e => {
-  const valor = e.target.value;
-  if (valor.length === 4) {
-    if (valor === PIN_CORRECTO) {
-      document.getElementById("pin-step").style.display = "none";
-      document.getElementById("main-content").style.display = "flex";
-    } else {
-      e.target.value = "";
-      alert("PIN incorrecto 💔");
+// PIN
+document.getElementById("pin-input").addEventListener("input", function(e){
+    const valor = e.target.value;
+    if(valor.length === 4){
+        if(valor === PIN_CORRECTO){
+            document.getElementById("pin-step").style.display = "none";
+            document.getElementById("main-content").style.display = "flex";
+        } else {
+            e.target.value = "";
+            alert("PIN incorrecto 💔");
+        }
     }
-  }
 });
 
-// --- Activar botones cuando escriben ---
-function activarInput(idInput, idBtn){
-  document.getElementById(idInput).addEventListener("input", () => {
-    document.getElementById(idBtn).disabled = !document.getElementById(idInput).value.trim();
-  });
-}
-activarInput("in-nombre","btn1");
-activarInput("in-cita","btn2");
-activarInput("in-gusto","btn3");
-activarInput("in-momento","btn4");
-activarInput("in-cancion","btn5");
-activarInput("in-viaje","btn6");
-activarInput("in-apodo","btn7");
-activarInput("in-sonrisa","btn8");
-
-// --- Google Sheets ---
-async function enviarAGoogle(){
-  try{
-    await fetch(SCRIPT_URL, {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(datos)
+// Activar inputs
+["in-nombre","in-cita","in-gusto","in-momento","in-cancion","in-viaje","in-apodo","in-sonrisa"].forEach((input,i) => {
+    document.getElementById(input).addEventListener("input", () => {
+        document.getElementById("btn"+(i+1)).disabled = !document.getElementById(input).value.trim();
     });
-    console.log("✅ Datos enviados");
-  }catch(err){
-    console.error("❌ Error enviando a Sheets:", err);
-  }
+});
+
+// Google Sheets
+async function enviarAGoogle() {
+    console.log("📤 Enviando:", datos);
+    try {
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+        console.log("✅ Datos enviados!");
+    } catch(error) {
+        console.error("❌ Error:", error);
+    }
 }
 
-// --- YouTube IFrame API ---
+// YouTube API
 let player;
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '0',
-    width: '0',
-    videoId: 'jJbS3XdHon8', // TU CANCIÓN
-    playerVars: {
-      'autoplay': 0,
-      'controls': 0,
-      'loop': 1,
-      'playlist': 'jJbS3XdHon8'
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'jJbS3XdHon8', // TU CANCIÓN
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'loop': 1,
+            'playlist': 'jJbS3XdHon8'
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    console.log("🎵 YouTube listo");
+}
+
+function comenzar() {
+    if(player && player.playVideo) {
+        player.playVideo();
+        console.log("🎵 ¡Música reproduciéndose!");
     }
-  });
+    irA(0,1);
 }
 
-// --- Comenzar: reproducir música + paso 1 ---
-function comenzar(){
-  if (player && player.playVideo) {
-    player.playVideo();
-    console.log("🎵 Música YouTube sonando");
-  } else {
-    console.log("YouTube aún no listo");
-  }
-  irA(0,1);
-}
-
-// --- Pasos ---
 function irA(actual,siguiente){
-  if(actual===1) datos.nombre   = document.getElementById("in-nombre").value;
-  if(actual===2) datos.cita     = document.getElementById("in-cita").value;
-  if(actual===3) datos.gusto    = document.getElementById("in-gusto").value;
-  if(actual===4) datos.momento  = document.getElementById("in-momento").value;
-  if(actual===5) datos.cancion  = document.getElementById("in-cancion").value;
-  if(actual===6) datos.viaje    = document.getElementById("in-viaje").value;
-  if(actual===7) datos.apodo    = document.getElementById("in-apodo").value;
-  if(actual===8){
-    datos.sonrisa = document.getElementById("in-sonrisa").value;
-    enviarAGoogle();
-  }
+    if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
+    if(actual===2) datos.cita=document.getElementById("in-cita").value;
+    if(actual===3) datos.gusto=document.getElementById("in-gusto").value;
+    if(actual===4) datos.momento=document.getElementById("in-momento").value;
+    if(actual===5) datos.cancion=document.getElementById("in-cancion").value;
+    if(actual===6) datos.viaje=document.getElementById("in-viaje").value;
+    if(actual===7) datos.apodo=document.getElementById("in-apodo").value;
+    if(actual===8){
+        datos.sonrisa=document.getElementById("in-sonrisa").value;
+        enviarAGoogle();
+    }
 
-  document.getElementById("s"+actual).classList.remove("active");
-  document.getElementById("s"+siguiente).classList.add("active");
+    document.getElementById("s"+actual).classList.remove("active");
+    document.getElementById("s"+siguiente).classList.add("active");
 }
 
-// --- Botón NO huye ---
 function huir(){
-  const btnNo = document.getElementById("no");
-  const btnSi = document.getElementById("si");
+    const btnNo = document.getElementById("no");
+    const btnSi = document.getElementById("si");
 
-  btnSi.style.zIndex = 10;
-  btnNo.style.zIndex = 5;
+    btnSi.style.zIndex = 10;
+    btnNo.style.zIndex = 5;
 
-  const siRect = btnSi.getBoundingClientRect();
-  const noRect = btnNo.getBoundingClientRect();
-  if(
-    noRect.right  < siRect.left  ||
-    noRect.left   > siRect.right ||
-    noRect.bottom < siRect.top   ||
-    noRect.top    > siRect.bottom
-  ){
-    btnNo.style.left = Math.random()*70 + "%";
-    btnNo.style.top  = Math.random()*150 + "px";
-  }
+    const siRect = btnSi.getBoundingClientRect();
+    const noRect = btnNo.getBoundingClientRect();
+    if(noRect.right < siRect.left || noRect.left > siRect.right || 
+       noRect.bottom < siRect.top || noRect.top > siRect.bottom){
+        btnNo.style.left = Math.random()*70 + "%";
+        btnNo.style.top = Math.random()*150 + "px";
+    }
 
-  escalaSi += 0.1;
-  btnSi.style.transform = `scale(${Math.min(escalaSi, 1.5)})`;
+    escalaSi += 0.1;
+    btnSi.style.transform = `scale(${Math.min(escalaSi, 1.5)})`;
 }
 
-// --- Final ---
 function finalizar(){
-  datos.acepto = "¡SÍ! 💖";
-  document.getElementById("nombre-final-texto").innerText =
-    datos.nombre + ", me haces el más feliz 💘";
-  enviarAGoogle();
-  irA(9,10);
+    datos.acepto = "¡SÍ! 💖";
+    document.getElementById("nombre-final-texto").innerText = datos.nombre + ", me haces el más feliz 💘";
+    enviarAGoogle();
+    irA(9,10);
 }
 
-// --- Cargar API de YouTube ---
-let tag = document.createElement('script');
+// Cargar YouTube API
+const tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
-document.body.appendChild(tag);
-
-// Debug
-window.addEventListener('load', () => {
-  console.log("Página cargada. Revisa que SCRIPT_URL esté bien.");
-});
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script>
 
 </body>
+</html>
