@@ -1,242 +1,294 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Marieta 💘</title>
-    <style>
-        #header-wrapper, .header-outer, .sidebar-wrapper, .footer-wrapper, 
-        .post-footer, .comments, #blog-pager, .status-msg-wrap, 
-        .cap-top, .main-cap-top, .fauxcolumn-left-outer, .aside-container, 
-        .navbar, #navbar-iframe, .ad-slot, .blog-feeds, .post-share-buttons,
-        .region-inner, .main-cap-bottom, .cap-bottom, .adsbygoogle {
-            display: none !important; visibility: hidden !important;
-            height: 0 !important; opacity: 0 !important;
-        }
-        .content-inner, .main-inner, .column-center-inner, .post-body, 
-        .post, .date-header, .body-fauxcolumn-outer {
-            background: transparent !important; border: none !important;
-            box-shadow: none !important; padding: 0 !important; margin: 0 !important;
-        }
-        html, body {
-            margin: 0 !important; padding: 0 !important; width: 100vw !important;
-            height: 100vh !important; overflow: hidden !important;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4) !important;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-        }
-        .valentines-layout {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            display: flex; align-items: center; justify-content: center; z-index: 999999;
-        }
-        .card-v {
-            background: white; padding: 35px 25px; border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15); width: 90%; max-width: 380px;
-            text-align: center; position: relative;
-        }
-        .step { display: none; opacity: 0; transition: opacity 0.5s; }
-        .step.active { display: block; opacity: 1; }
-        h1 { color: #e63946; font-size: 1.7rem; margin-bottom: 10px; }
-        h2 { color: #e63946; margin-bottom: 15px; }
-        p { margin: 0 0 10px; }
-        input {
-            width: 90%; padding: 12px; margin: 15px 0; border-radius: 12px;
-            border: 1px solid #ddd; outline: none; font-size: 1rem;
-        }
-        input:focus { border-color: #e63946; box-shadow: 0 0 0 2px rgba(230,57,70,0.15); }
-        button {
-            background: #e63946; color: white; border: none; padding: 12px 25px;
-            border-radius: 15px; cursor: pointer; font-weight: bold; margin-top: 10px;
-            font-size: 1rem;
-        }
-        button:disabled { opacity: 0.6; cursor: not-allowed; background: #ccc; }
-        .btn-area { position: relative; height: 230px; margin-top: 20px;
-            display: flex; align-items: center; justify-content: center; }
-        #si { position: absolute; left: 5%; z-index: 100; transition: transform 0.2s; }
-        #no { position: absolute; right: 5%; background: #adb5bd; transition: all 0.2s; }
-        .heart { position: absolute; color: #e63946; font-size: 20px;
-            animation: fall linear forwards; z-index: 1; pointer-events: none; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
-        .pin-screen { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-            border-radius: 25px; padding: 40px 25px; box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            max-width: 350px; text-align: center; }
-        .pin-input { letter-spacing: 10px; font-size: 2rem; font-weight: bold;
-            text-align: center; border: 2px solid #e63946; background: white; width: 100%; }
-        /* 🆕 FOTO ROMÁNTICA */
-        .foto-final { 
-            margin-top: 20px; padding: 15px; background: #ffebee; 
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(230,57,70,0.3);
-        }
-        .foto-final img { 
-            width: 100%; max-width: 280px; height: 200px; object-fit: cover;
-            border-radius: 20px; 
-        }
-        .foto-texto { font-size: 0.85rem; color: #e63946; margin-top: 10px; }
-    </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Marieta 💘</title>
 
-<!-- PIN SCREEN -->
-<div class="valentines-layout">
-    <div class="card-v">
-        <div class="step active" id="pin-step">
-            <h1>🔐 Acceso Privado</h1>
-            <p>Ingresa el código secreto</p>
-            <input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="____">
-            <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
-                Solo para una persona especial 💕
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- CARTA PRINCIPAL -->
-<div class="valentines-layout" id="main-content" style="display: none;">
-    <div class="card-v">
-        <div class="step active" id="s0">
-            <h1>💘 Hola Marieta...</h1>
-            <p>He preparado algo para ti. ¿Quieres verlo?</p>
-            <button onclick="comenzar()">Sí, ver 💌</button>
-        </div>
-
-        <div class="step" id="s1">
-            <p>¿Cómo te llamas?</p>
-            <input type="text" id="in-nombre" value="Marieta">
-            <button id="btn1" onclick="irA(1, 2)" disabled>Continuar 💌</button>
-        </div>
-
-        <div class="step" id="s2">
-            <p>¿Te acuerdas de nuestra primera cita? ¿Qué fue lo mejor? ✨</p>
-            <input type="text" id="in-cita" placeholder="Cuéntame...">
-            <button id="btn2" onclick="irA(2, 3)" disabled>Siguiente 💖</button>
-        </div>
-
-        <div class="step" id="s3">
-            <p>¿Qué es lo que más te gusta de mí? 😊</p>
-            <input type="text" id="in-gusto" placeholder="Sé sincera...">
-            <button id="btn3" onclick="irA(3, 4)" disabled>Siguiente 🌟</button>
-        </div>
-
-        <div class="step" id="s4">
-            <p>¿Cómo me imaginas en 5 años juntos? 💭</p>
-            <input type="text" id="in-futuro" placeholder="Tu visión...">
-            <button id="btn4" onclick="irA(4, 5)" disabled>Siguiente 💕</button>
-        </div>
-
-        <div class="step" id="s5">
-            <h2>¿Quieres ser mi novia? 💕</h2>
-            <div class="btn-area">
-                <button id="si" onclick="finalizar()">¡SÍ! 💖</button>
-                <button id="no" onmouseover="huir()" ontouchstart="huir()">No 🙈</button>
-            </div>
-        </div>
-
-        <!-- 🆕 FINAL CON FOTO ROMÁNTICA -->
-        <div class="step" id="s6">
-            <h2 style="color: #e63946;">💖 ¡Dijo que SÍ! 💖</h2>
-            <p><span id="nombre-final" style="font-weight:bold;">Marieta</span>, ¡me has hecho muy feliz!</p>
-            
-            <div class="foto-final">
-                <img src="foto-escritorio.jpg" alt="Mi escritorio para ti ❤️" loading="lazy">
-                <p class="foto-texto">¿Listos para nuestra historia juntos? 💕</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<iframe id="musica" width="0" height="0" src="https://www.youtube.com/embed/b7sU7z3FcP0?enablejsapi=1" frameborder="0" allow="autoplay"></iframe>
-
-<script>
-    const PIN_CORRECTO = "0869"; // ← CAMBIA A TU PIN AQUÍ
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyAy73RHeh-2eEqMNCO7TBMl97KFDjfckM9BkoeieroEQK75RbPpBcq3Yn-RDd1PNhviQ/exec "; // Apps Script después
-
-    let escalaSi = 1;
-    let datos = { nombre: "", cita: "", gusto: "", futuro: "", acepto: "Pendiente" };
-
-    // PIN
-    document.getElementById('pin-input').addEventListener('input', function(e) {
-        if (e.target.value.length === 4) {
-            if (e.target.value === PIN_CORRECTO) {
-                document.getElementById('pin-step').style.display = 'none';
-                document.getElementById('main-content').style.display = 'flex';
-            } else {
-                e.target.value = ''; e.target.style.animation = 'shake 0.5s';
-                setTimeout(() => e.target.style.animation = '', 500);
-            }
-        }
-    });
-
-    // BOTONES SOLO AL ESCRIBIR
-    document.getElementById('in-nombre').addEventListener('input', () => {
-        document.getElementById('btn1').disabled = !document.getElementById('in-nombre').value.trim();
-    });
-    document.getElementById('in-cita').addEventListener('input', () => {
-        document.getElementById('btn2').disabled = !document.getElementById('in-cita').value.trim();
-    });
-    document.getElementById('in-gusto').addEventListener('input', () => {
-        document.getElementById('btn3').disabled = !document.getElementById('in-gusto').value.trim();
-    });
-    document.getElementById('in-futuro').addEventListener('input', () => {
-        document.getElementById('btn4').disabled = !document.getElementById('in-futuro').value.trim();
-    });
-
-    function enviarAGoogle() {
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(datos) });
-    }
-
-    function comenzar() { 
-        const vid = document.getElementById('musica');
-        vid.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        irA(0, 1); 
-    }
-
-    function irA(actual, siguiente) {
-        if (actual === 1) datos.nombre = document.getElementById('in-nombre').value;
-        if (actual === 2) datos.cita = document.getElementById('in-cita').value;
-        if (actual === 3) datos.gusto = document.getElementById('in-gusto').value;
-        if (actual === 4) { 
-            datos.futuro = document.getElementById('in-futuro').value;
-            enviarAGoogle();
-        }
-        document.getElementById('s' + actual).classList.remove('active');
-        document.getElementById('s' + siguiente).classList.add('active');
-    }
-
-    function huir() {
-        const btnNo = document.getElementById('no');
-        const btnSi = document.getElementById('si');
-        btnNo.style.left = Math.random() * 70 + '%';
-        btnNo.style.top = Math.random() * 150 + 'px';
-        escalaSi += 0.8;
-        btnSi.style.transform = `scale(${escalaSi})`;
-    }
-
-    function finalizar() {
-        datos.acepto = "¡SÍ!"; 
-        document.getElementById('nombre-final').innerText = datos.nombre || "Marieta";
-        enviarAGoogle();
-        irA(5, 6);
-        lluviaCorazones();
-    }
-
-    function lluviaCorazones() {
-        for (let i = 0; i < 60; i++) {
-            setTimeout(() => {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️'; heart.className = 'heart';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 6000);
-            }, i * 100);
-        }
-    }
-</script>
 <style>
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.valentines-layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-v {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.step { display: none; opacity: 0; transition: 0.5s; }
+.step.active { display: block; opacity: 1; }
+
+h1, h2 { color: #e63946; }
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+button {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:disabled {
+    opacity: 0.6;
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-area {
+    position: relative;
+    height: 200px;
+    margin-top: 20px;
+}
+
+#si {
+    position: absolute;
+    left: 10%;
+    transition: 0.2s;
+}
+
+#no {
+    position: absolute;
+    right: 10%;
+    background: #adb5bd;
+}
+
+.pin-input {
+    width: 220px;
+    padding: 15px;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #e63946;
+    font-family: monospace; 
 }
 </style>
+</head>
+
+<body>
+
+<!-- PIN -->
+<div class="valentines-layout">
+<div class="card-v">
+<div class="step active" id="pin-step">
+<h1>🔐 Acceso Privado</h1>
+<p>Ingresa el código secreto</p>
+<input type="text"
+       id="pin-input"
+       class="pin-input"
+       maxlength="4"
+       placeholder="💖💖💖💖"
+       inputmode="numeric">
+<p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
+</div>
+</div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="valentines-layout" id="main-content" style="display:none;">
+<div class="card-v">
+
+<div class="step active" id="s0">
+<h1>💘 Hola...</h1>
+<p>He preparado algo para ti. ¿Quieres verlo?</p>
+<button onclick="comenzar()">Sí, ver 💌</button>
+</div>
+
+<div class="step" id="s1">
+<p>¿Cómo te llamas?</p>
+<input type="text" id="in-nombre" placeholder="Escribe tu nombre...">
+<button id="btn1" onclick="irA(1,2)" disabled>Continuar 💌</button>
+</div>
+
+<div class="step" id="s2">
+<p>¿Te acuerdas de nuestra primera cita? ✨</p>
+<input type="text" id="in-cita">
+<button id="btn2" onclick="irA(2,3)" disabled>Siguiente 💖</button>
+</div>
+
+<div class="step" id="s3">
+<p>¿Qué es lo que más te gusta de mí? 😊</p>
+<input type="text" id="in-gusto">
+<button id="btn3" onclick="irA(3,4)" disabled>Siguiente 🌟</button>
+</div>
+
+<div class="step" id="s4">
+<p>¿Cuándo supiste que te gustaba? 💘</p>
+<input type="text" id="in-momento">
+<button id="btn4" onclick="irA(4,5)" disabled>Siguiente 💕</button>
+</div>
+
+<div class="step" id="s5">
+<p>¿Qué canción te recuerda a nosotros? 🎵</p>
+<input type="text" id="in-cancion">
+<button id="btn5" onclick="irA(5,6)" disabled>Siguiente 🎶</button>
+</div>
+
+<div class="step" id="s6">
+<p>¿Cuál sería nuestro viaje soñado? ✈️</p>
+<input type="text" id="in-viaje">
+<button id="btn6" onclick="irA(6,7)" disabled>Siguiente 🌍</button>
+</div>
+
+<div class="step" id="s7">
+<p>¿Qué apodo cariñoso me pondrías? 😏</p>
+<input type="text" id="in-apodo">
+<button id="btn7" onclick="irA(7,8)" disabled>Siguiente 💗</button>
+</div>
+
+<div class="step" id="s8">
+<p>¿Qué es lo que más te hace sonreír cuando estás conmigo? 😊</p>
+<input type="text" id="in-sonrisa">
+<button id="btn8" onclick="irA(8,9)" disabled>Siguiente 💞</button>
+</div>
+
+<div class="step" id="s9">
+<h2>¿Quieres ser mi novia? 💕</h2>
+<div class="btn-area">
+<button id="si" onclick="finalizar()">¡SÍ! 💖</button>
+<button id="no" onmouseover="huir()">No 🙈</button>
+</div>
+</div>
+
+<div class="step" id="s10">
+<h2>💖 ¡Dijo que SÍ! 💖</h2>
+<p><span id="nombre-final"></span>, me haces el más feliz 💘</p>
+</div>
+
+</div>
+</div>
+
+<script>
+const PIN_CORRECTO = "0869"; // PIN de 4 dígitos
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvvfyf5FdodvsmbEs5qMmvLpKmdbyNMBwYeI7rbYZASa3_vzRK8ktqqUfOw0nXV39BGA/exec";
+
+let escalaSi = 1;
+
+let datos = {
+nombre:"",
+cita:"",
+gusto:"",
+momento:"",
+cancion:"",
+viaje:"",
+apodo:"",
+sonrisa:"",
+acepto:"Pendiente"
+};
+
+// --- PIN input ---
+const pinInput = document.getElementById("pin-input");
+pinInput.addEventListener("input", function(e){
+    const valor = e.target.value;
+    if(valor.length === 4){
+        if(valor === PIN_CORRECTO){
+            document.getElementById("pin-step").style.display="none";
+            document.getElementById("main-content").style.display="flex";
+        } else {
+            e.target.value = "";
+            alert("PIN incorrecto 💔");
+        }
+    }
+});
+
+// --- Funciones del cuestionario ---
+function activarInput(idInput,idBtn){
+    document.getElementById(idInput).addEventListener("input",()=>{
+        document.getElementById(idBtn).disabled=!document.getElementById(idInput).value.trim();
+    });
+}
+
+activarInput("in-nombre","btn1");
+activarInput("in-cita","btn2");
+activarInput("in-gusto","btn3");
+activarInput("in-momento","btn4");
+activarInput("in-cancion","btn5");
+activarInput("in-viaje","btn6");
+activarInput("in-apodo","btn7");
+activarInput("in-sonrisa","btn8");
+
+function enviarAGoogle(){
+    fetch(SCRIPT_URL,{
+      method:"POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    })
+    .then(()=>console.log("Datos enviados"))
+    .catch(error=>console.error("Error:", error));
+}
+
+function comenzar(){ irA(0,1); }
+
+function irA(actual,siguiente){
+    if(actual===1) datos.nombre=document.getElementById("in-nombre").value;
+    if(actual===2) datos.cita=document.getElementById("in-cita").value;
+    if(actual===3) datos.gusto=document.getElementById("in-gusto").value;
+    if(actual===4) datos.momento=document.getElementById("in-momento").value;
+    if(actual===5) datos.cancion=document.getElementById("in-cancion").value;
+    if(actual===6) datos.viaje=document.getElementById("in-viaje").value;
+    if(actual===7) datos.apodo=document.getElementById("in-apodo").value;
+    if(actual===8){
+        datos.sonrisa=document.getElementById("in-sonrisa").value;
+        enviarAGoogle();
+    }
+
+    document.getElementById("s"+actual).classList.remove("active");
+    document.getElementById("s"+siguiente).classList.add("active");
+}
+
+function huir(){
+    const btnNo=document.getElementById("no");
+    const btnSi=document.getElementById("si");
+    btnNo.style.left=Math.random()*70+"%";
+    btnNo.style.top=Math.random()*150+"px";
+    escalaSi+=0.5;
+    btnSi.style.transform=`scale(${escalaSi})`;
+}
+
+function finalizar(){
+    datos.acepto="¡SÍ!";
+    document.getElementById("nombre-final").innerText=datos.nombre;
+    enviarAGoogle();
+    irA(9,10);
+}
+</script>
+
 </body>
 </html>
+
+
+
+
+
