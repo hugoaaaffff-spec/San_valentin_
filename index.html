@@ -92,7 +92,6 @@ button:disabled {
     text-align: center;
     border-radius: 15px;
     border: 2px solid #e63946;
-    letter-spacing: 15px;
     font-family: monospace; 
 }
 </style>
@@ -111,7 +110,7 @@ button:disabled {
        class="pin-input"
        maxlength="4"
        placeholder="💖💖💖💖"
-       inputmode="decimal">
+       inputmode="numeric">
 <p style="font-size: 0.85rem;">Solo para una persona especial 💕</p>
 </div>
 </div>
@@ -192,7 +191,7 @@ button:disabled {
 </div>
 
 <script>
-const PIN_CORRECTO = "0869";
+const PIN_CORRECTO = "8694"; // PIN de 4 dígitos
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvvfyf5FdodvsmbEs5qMmvLpKmdbyNMBwYeI7rbYZASa3_vzRK8ktqqUfOw0nXV39BGA/exec";
 
 let escalaSi = 1;
@@ -209,25 +208,15 @@ sonrisa:"",
 acepto:"Pendiente"
 };
 
-// --- PIN oculto con corazones ---
+// --- PIN input ---
 const pinInput = document.getElementById("pin-input");
-let pinReal = "";
-
 pinInput.addEventListener("input", function(e){
-    let valor = e.target.value;
-    if(valor.length > pinReal.length){
-        pinReal += valor.slice(-1);
-    } else {
-        pinReal = pinReal.slice(0, valor.length);
-    }
-    e.target.value = "💖".repeat(pinReal.length);
-
-    if(pinReal.length === 4){
-        if(pinReal === PIN_CORRECTO){
+    const valor = e.target.value;
+    if(valor.length === 4){
+        if(valor === PIN_CORRECTO){
             document.getElementById("pin-step").style.display="none";
             document.getElementById("main-content").style.display="flex";
         } else {
-            pinReal = "";
             e.target.value = "";
             alert("PIN incorrecto 💔");
         }
@@ -298,6 +287,7 @@ function finalizar(){
 
 </body>
 </html>
+
 
 
 
