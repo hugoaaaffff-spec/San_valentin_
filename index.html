@@ -61,6 +61,7 @@ button {
     cursor: pointer;
     font-weight: bold;
     position: relative;
+    transition: all 0.3s ease;
 }
 
 button:disabled {
@@ -87,6 +88,7 @@ button:disabled {
     right: 10%;
     background: #adb5bd;
     z-index: 5;
+    transition: all 0.3s ease;
 }
 
 .pin-input {
@@ -218,9 +220,10 @@ button:disabled {
 
 <script>
 const PIN_CORRECTO = "0869";
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_0KyosAAq4HKa_j1Hp4tK3lK21hFncrSdfgV57q8xUu6QXd2J6A6bHzw82z4tJNCm4w/exec"; // ← ¡PON TU URL AQUÍ!
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_0KyosAAq4HKa_j1Hp4tK3lK21hFncrSdfgV57q8xUu6QXd2J6A6bHzw82z4tJNCm4w/exec";
 
 let escalaSi = 1;
+let escalaNo = 1;
 let datos = {
     nombre: "",
     cita: "",
@@ -254,7 +257,7 @@ document.getElementById("pin-input").addEventListener("input", function(e){
     });
 });
 
-// Google Sheets - FUNCIÓN CORREGIDA
+// Google Sheets
 async function enviarAGoogle() {
     console.log("📤 Enviando:", datos);
     try {
@@ -276,7 +279,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'jJbS3XdHon8', // TU CANCIÓN
+        videoId: 'jJbS3XdHon8',
         playerVars: {
             'autoplay': 0,
             'controls': 0,
@@ -322,19 +325,26 @@ function huir(){
     const btnNo = document.getElementById("no");
     const btnSi = document.getElementById("si");
 
-    btnSi.style.zIndex = 10;
-    btnNo.style.zIndex = 5;
-
-    const siRect = btnSi.getBoundingClientRect();
-    const noRect = btnNo.getBoundingClientRect();
-    if(noRect.right < siRect.left || noRect.left > siRect.right || 
-       noRect.bottom < siRect.top || noRect.top > siRect.bottom){
-        btnNo.style.left = Math.random()*70 + "%";
-        btnNo.style.top = Math.random()*150 + "px";
-    }
-
+    // SI crece más
     escalaSi += 0.1;
-    btnSi.style.transform = `scale(${Math.min(escalaSi, 1.5)})`;
+    btnSi.style.transform = `scale(${Math.min(escalaSi, 2.0)})`;
+    btnSi.style.zIndex = 10;
+
+    // NO se hace más pequeño y va detrás
+    escalaNo -= 0.05;
+    btnNo.style.transform = `scale(${Math.max(escalaNo, 0.3)})`;
+    btnNo.style.zIndex = 1;
+    btnNo.style.opacity = Math.max(escalaNo, 0.3);
+
+    // Mover NO por la pantalla
+    const rect = btnNo.getBoundingClientRect();
+    const siRect = btnSi.getBoundingClientRect();
+    
+    if(rect.right < siRect.left || rect.left > siRect.right || 
+       rect.bottom < siRect.top || rect.top > siRect.bottom){
+        btnNo.style.left = Math.random()*60 + "%";
+        btnNo.style.top = Math.random()*120 + "px";
+    }
 }
 
 function finalizar(){
@@ -353,4 +363,5 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 </body>
 </html>
+
 
