@@ -190,8 +190,13 @@ button:disabled {
 </div>
 </div>
 
+<!-- Música local -->
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-const PIN_CORRECTO = "0869"; // PIN de 4 dígitos
+const PIN_CORRECTO = "0869"; // tu PIN
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvvfyf5FdodvsmbEs5qMmvLpKmdbyNMBwYeI7rbYZASa3_vzRK8ktqqUfOw0nXV39BGA/exec";
 
 let escalaSi = 1;
@@ -208,14 +213,19 @@ sonrisa:"",
 acepto:"Pendiente"
 };
 
-// --- PIN input ---
+// --- PIN solo al inicio ---
 const pinInput = document.getElementById("pin-input");
+const musica = document.getElementById("musica");
+
 pinInput.addEventListener("input", function(e){
     const valor = e.target.value;
     if(valor.length === 4){
         if(valor === PIN_CORRECTO){
-            document.getElementById("pin-step").style.display="none";
-            document.getElementById("main-content").style.display="flex";
+            document.getElementById("pin-step").style.display = "none";
+            document.getElementById("main-content").style.display = "flex";
+
+            // Reproducir música
+            musica.play().catch(() => console.log("Autoplay bloqueado"));
         } else {
             e.target.value = "";
             alert("PIN incorrecto 💔");
@@ -287,6 +297,7 @@ function finalizar(){
 
 </body>
 </html>
+
 
 
 
