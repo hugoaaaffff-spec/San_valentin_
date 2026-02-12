@@ -218,7 +218,7 @@ button:disabled {
 
 <script>
 const PIN_CORRECTO = "0869";
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuA07uXsC1TzDYx2q-bi18Oe4SBX44tFySrtz1si1MUvdxEuGxzCzHmXC9E3h-HKGk/exec"; // ← ¡PON TU URL AQUÍ!
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_0KyosAAq4HKa_j1Hp4tK3lK21hFncrSdfgV57q8xUu6QXd2J6A6bHzw82z4tJNCm4w/exec"; // ← ¡PON TU URL AQUÍ!
 
 let escalaSi = 1;
 let datos = {
@@ -254,12 +254,13 @@ document.getElementById("pin-input").addEventListener("input", function(e){
     });
 });
 
-// Google Sheets
+// Google Sheets - FUNCIÓN CORREGIDA
 async function enviarAGoogle() {
     console.log("📤 Enviando:", datos);
     try {
         await fetch(SCRIPT_URL, {
             method: "POST",
+            mode: 'no-cors',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(datos)
         });
@@ -352,3 +353,4 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 </body>
 </html>
+
